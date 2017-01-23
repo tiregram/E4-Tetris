@@ -8,28 +8,29 @@ namespace Source
 {
     class Piece : Grid
     {
-        int Rows()
-        int Columns();
-        char CellAt(int row, int col);
+        StringToMatrix converter; 
 
-        private char[,] stringToTab(string s)
+        int Grid.Rows()
         {
+            return converter.blocks.GetLength(1); 
+        }
+        int Grid.Columns()
+        {
+            return converter.blocks.GetLength(0); 
+        }
+        char Grid.CellAt(int row, int col)
+        {
+            return converter.blocks[row, col];
+        }
 
-            int sizeX = s.IndexOf('\n');
-            int sizeY = s.Length / (sizeX + 1);
+        public Piece(string s)
+        {
+            converter = new StringToMatrix(s); 
+        }
 
-            char[,] tab = new char[sizeY, sizeX];
-
-            for (int x = 0; x < sizeX; x++)
-            {
-                for (int y = 0; y < sizeY; y++)
-                {
-                    tab[y, x] = s[x + y * (sizeX + 1)];
-                }
-
-            }
-
-            return tab;
+        public override string ToString()
+        {
+            return StringToMatrix.Inverse(converter.blocks, ((Grid)this).Rows(), ((Grid)this).Columns() );
         }
 
     }

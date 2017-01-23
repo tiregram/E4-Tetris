@@ -7,33 +7,33 @@ namespace Test
     [TestClass]
     public class Step3_StringToMatrixTest
     {
-        //[TestMethod]
-        //public void string_to_matrix()
-        //{
-        //    string grid = "...\n...\n...\n";
+        [TestMethod]
+        public void string_to_matrix()
+        {
+            string grid = "...\n...\n...\n";
 
-        //    StringToMatrix converter = new StringToMatrix(grid);
+            StringToMatrix converter = new StringToMatrix(grid);
 
-        //    CollectionAssert.AreEqual(converter.blocks, new char[,] {
-        //        {'.','.','.'},
-        //        {'.','.','.'},
-        //        {'.','.','.'}
-        //    });
-        //}
+            CollectionAssert.AreEqual(converter.blocks, new char[,] {
+                {'.','.','.'},
+                {'.','.','.'},
+                {'.','.','.'}
+            });
+        }
 
-        //[TestMethod]
-        //public void matrix_to_string()
-        //{
-        //    char[,] matrix = new char[,] {
-        //        {'.','.','.'},
-        //        {'.','.','.'},
-        //        {'.','.','.'}
-        //    }; 
+        [TestMethod]
+        public void matrix_to_string()
+        {
+            char[,] matrix = new char[,] {
+                {'.','.','.'},
+                {'.','.','.'},
+                {'.','.','.'}
+            };
 
-        //    string grid = StringToMatrix.Inverse(matrix, 3, 3);
+            string grid = StringToMatrix.Inverse(matrix, 3, 3);
 
-        //    Assert.AreEqual(grid, "...\n...\n...\n");
-        //}
+            Assert.AreEqual(grid, "...\n...\n...\n");
+        }
     }
 
     [TestClass]
@@ -47,30 +47,30 @@ namespace Test
             board = new Board(6, 8);
         }
 
-        //void RepeatTick(int times)
-        //{
-        //    for (int i = 0; i < times; i++)
-        //        board.Tick();
-        //}
+        void RepeatTick(int times)
+        {
+            for (int i = 0; i < times; i++)
+                board.Tick();
+        }
 
         #region when_a_piece_is_dropped
 
-        //[TestMethod]
-        //public void tetromino_starts_from_top_middle()
-        //{
-        //    // act
-        //    board.Drop(Tetromino.T_SHAPE);
+        [TestMethod]
+        public void tetromino_starts_from_top_middle()
+        {
+            // act
+            board.Drop((Grid)Tetromino.T_SHAPE);
 
-        //    // assert
-        //    Assert.AreEqual(board.ToString(),
-        //        "..TTT...\n" +
-        //        "...T....\n" +
-        //        "........\n" +
-        //        "........\n" +
-        //        "........\n" +
-        //        "........\n"
-        //    );
-        //}
+            // assert
+            Assert.AreEqual(board.ToString(),
+                "..TTT...\n" +
+                "...T....\n" +
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "........\n"
+            );
+        }
 
         #endregion
 

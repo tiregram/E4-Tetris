@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Source
 {
-    public class Board
+    public class Board : Grid
     {
         public readonly int rows;
         public readonly int columns;
@@ -14,6 +14,20 @@ namespace Source
 
         Block currentBlock;
 
+        int Grid.Rows()
+        {
+            return rows; 
+        }
+
+        int Grid.Columns()
+        {
+            return columns; 
+        }
+
+        char Grid.CellAt(int row, int col)
+        {
+            return boardValues[row, col]; 
+        }
 
         public Board(int rows, int columns)
         {
@@ -66,6 +80,13 @@ namespace Source
             else
                 throw new ArgumentException("A block is already falling.");
         }
+
+        public void Drop(Grid grid)
+        {
+            Block b = (Block)grid;
+            this.Drop(b); 
+        }
+
 
         public void Tick()
         {

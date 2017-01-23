@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Source
 {
-    public class Block
+    public class Block : Grid
     {
         int x, y;
         char c;
@@ -78,5 +78,19 @@ namespace Source
             MyBoard.boardValues[this.x, this.y] = this.c; 
         }
 
+        public int Rows()
+        {
+            return 1; 
+        }
+
+        public int Columns()
+        {
+            return 1; 
+        }
+
+        public char CellAt(int row, int col)
+        {
+            return c; 
+        }
     }
 }
