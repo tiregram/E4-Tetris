@@ -11,26 +11,35 @@ namespace Source
         char[][,] state;
         int valState;
 
-        void rotateRight()
+        public Tetromino RotateRight()
         {
-            this.valState = (this.valState + 1) % state.GetLength(0);
+            Tetromino ret = new Tetromino(this); 
+            
+            ret.valState = (ret.valState + 1) % state.GetLength(0);
+
+            return ret; 
         }
 
-        void rotateLefts()
+        public Tetromino RotateLeft()
         {
-            this.valState = (this.valState - 1 + state.GetLength(0)) % state.GetLength(0);
-        }
+            Tetromino ret = new Tetromino(this);
 
+            ret.valState = (state.GetLength(0) + ret.valState - 1) % state.GetLength(0);
+
+            return ret;
+        }
+         
 
         char[,] getCurrentState()
         {
-            return state[valState];
+            return this.state[this.valState];
         }
 
         private Tetromino(int size,int rot = 0)
         {
             state = new char[size][,];
             valState = rot;
+            
         }
 
         public Tetromino (string a, string b, string c, string d):this(4)
@@ -67,18 +76,34 @@ namespace Source
             int sizeX = s.IndexOf('\n');
             int sizeY = s.Length / (sizeX+1);
 
-            char[,] tab = new char[sizeX, sizeY]; 
+            char[,] tab = new char[sizeY, sizeX]; 
 
             for(int x = 0; x < sizeX; x++)
             {
                 for (int y = 0; y < sizeY; y++)
                 {
-                    tab[x, y] = s[x + y * (sizeX+1)]; 
+                    tab[y, x] = s[x + y * (sizeX+1)]; 
                 }
 
             }
 
             return tab; 
+        }
+
+        public override string ToString()
+        {
+            string str = "";
+            char[,] curentState = this.getCurrentState();
+            for (int i = 0; i < curentState.GetLength(0); i++)
+            {
+                for (int j = 0; j < curentState.GetLength(1); j++)
+                {
+                    str += curentState[i, j];
+                }
+                str +="\n";
+            }
+
+            return str;
         }
     }
 }
