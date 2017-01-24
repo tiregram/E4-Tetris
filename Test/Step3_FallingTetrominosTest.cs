@@ -59,7 +59,7 @@ namespace Test
         public void tetromino_starts_from_top_middle()
         {
             // act
-            board.Drop((Grid)Tetromino.T_SHAPE);
+            board.Drop( Tetromino.T_SHAPE);
 
             // assert
             Assert.AreEqual(board.ToString(),
@@ -76,97 +76,97 @@ namespace Test
 
         #region when_a_piece_reaches_the_bottom
 
-        //[TestMethod]
-        //public void piece_is_still_falling_on_the_last_row()
-        //{
-        //    // arrange
-        //    board.Drop(Tetromino.T_SHAPE);
+        [TestMethod]
+        public void piece_is_still_falling_on_the_last_row()
+        {
+            // arrange
+            board.Drop(Tetromino.T_SHAPE);
 
-        //    // act
-        //    RepeatTick(4);
+            // act
+            RepeatTick(4);
 
-        //    // assert
-        //    Assert.AreEqual(board.ToString(),
-        //        "........\n" +
-        //        "........\n" +
-        //        "........\n" +
-        //        "........\n" +
-        //        "..TTT...\n" +
-        //        "...T....\n"
-        //    );
-        //    Assert.IsTrue(board.IsFallingBlock());
-        //}
+            // assert
+            Assert.AreEqual(board.ToString(),
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "..TTT...\n" +
+                "...T....\n"
+            );
+            Assert.IsTrue(board.IsFallingBlock());
+        }
 
-        //[TestMethod]
-        //public void piece_stops_when_it_hits_the_bottom()
-        //{
-        //    // arrange
-        //    board.Drop(Tetromino.T_SHAPE);
+        [TestMethod]
+        public void piece_stops_when_it_hits_the_bottom()
+        {
+            // arrange
+            board.Drop(Tetromino.T_SHAPE);
 
-        //    // act
-        //    RepeatTick(5);
+            // act
+            RepeatTick(5);
 
-        //    // assert
-        //    Assert.AreEqual(board.ToString(),
-        //        "........\n" +
-        //        "........\n" +
-        //        "........\n" +
-        //        "........\n" +
-        //        "..TTT...\n" +
-        //        "...T....\n"
-        //    );
-        //    Assert.IsFalse(board.IsFallingBlock());
-        //}
+            // assert
+            Assert.AreEqual(board.ToString(),
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "..TTT...\n" +
+                "...T....\n"
+            );
+            Assert.IsFalse(board.IsFallingBlock());
+        }
 
         #endregion
 
         #region when_a_piece_lands_on_another_piece
 
-        //[TestMethod]
-        //public void piece_is_still_falling_right_above_the_other_piece()
-        //{
-        //    // arrange
-        //    board.Drop(Tetromino.T_SHAPE);
-        //    RepeatTick(5);
+        [TestMethod]
+        public void piece_is_still_falling_right_above_the_other_piece()
+        {
+            // arrange
+            board.Drop(Tetromino.T_SHAPE);
+            RepeatTick(5);
 
-        //    // act
-        //    board.Drop(Tetromino.T_SHAPE);
-        //    RepeatTick(2);
+            // act
+            board.Drop(Tetromino.T_SHAPE);
+            RepeatTick(2);
 
-        //    // assert
-        //    Assert.AreEqual(board.ToString(),
-        //        "........\n" +
-        //        "........\n" +
-        //        "..TTT...\n" +
-        //        "...T....\n" +
-        //        "..TTT...\n" +
-        //        "...T....\n"
-        //    );
-        //    Assert.IsTrue(board.IsFallingBlock());
-        //}
+            // assert
+            Assert.AreEqual(board.ToString(),
+                "........\n" +
+                "........\n" +
+                "..TTT...\n" +
+                "...T....\n" +
+                "..TTT...\n" +
+                "...T....\n"
+            );
+            Assert.IsTrue(board.IsFallingBlock());
+        }
 
-        //[TestMethod]
-        //public void piece_stops_when_it_hits_the_other_piece()
-        //{
-        //    // arrange
-        //    board.Drop(Tetromino.T_SHAPE);
-        //    RepeatTick(5);
+        [TestMethod]
+        public void piece_stops_when_it_hits_the_other_piece()
+        {
+            // arrange
+            board.Drop(Tetromino.T_SHAPE);
+            RepeatTick(5);
 
-        //    // act
-        //    board.Drop(Tetromino.T_SHAPE);
-        //    RepeatTick(3);
+            // act
+            board.Drop(Tetromino.T_SHAPE);
+            RepeatTick(3);
 
-        //    // assert
-        //    Assert.AreEqual(board.ToString(),
-        //        "........\n" +
-        //        "........\n" +
-        //        "..TTT...\n" +
-        //        "...T....\n" +
-        //        "..TTT...\n" +
-        //        "...T....\n"
-        //    );
-        //    Assert.IsFalse(board.IsFallingBlock());
-        //}
+            // assert
+            Assert.AreEqual(board.ToString(),
+                "........\n" +
+                "........\n" +
+                "..TTT...\n" +
+                "...T....\n" +
+                "..TTT...\n" +
+                "...T....\n"
+            );
+            Assert.IsFalse(board.IsFallingBlock());
+        }
 
         #endregion
 

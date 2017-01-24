@@ -10,9 +10,10 @@ namespace Source
     {
         public readonly int rows;
         public readonly int columns;
-        public char[,] boardValues; 
+        //public char[,] boardValues; 
+        public StringToMatrix boardValues;
 
-        Block currentBlock;
+        MovableGrid currentBlock;
 
         int Grid.Rows()
         {
@@ -26,7 +27,19 @@ namespace Source
 
         char Grid.CellAt(int row, int col)
         {
-            return boardValues[row, col]; 
+            if(row >= 0 && col >= 0 && row < ((Grid)this).Rows() && col < ((Grid)this).Columns() )
+            {
+                return boardValues.blocks[row, col];
+            }
+            else
+            {
+                return '|';
+            }
+        }
+
+        public void MoveDown()
+        {
+            this.currentBlock.Tick();
         }
 
         public Board(int rows, int columns)
@@ -34,13 +47,32 @@ namespace Source
             this.rows = rows;
             this.columns = columns;
             this.currentBlock = null;
-            boardValues = new char[columns, rows];
+            boardValues = new StringToMatrix(""); 
+            boardValues.blocks = new char[rows, columns];
             for (int row = 0; row < rows; row++)
             {
                 for (int col = 0; col < columns; col++)
                 {
-                    boardValues[col, row] = '.';
+                    boardValues.blocks[row, col] = '.';
                 }
+            }
+        }
+
+        public void MoveLeft()
+        {
+            this.currentBlock.x--; 
+            if(!this.currentBlock.check())
+            {
+                this.currentBlock.x++; 
+            }
+        }
+
+        public void MoveRight()
+        {
+            this.currentBlock.x++;
+            if (!this.currentBlock.check())
+            {
+                this.currentBlock.x--;
             }
         }
 
@@ -53,11 +85,11 @@ namespace Source
                 {
                     if(IsFallingBlock())
                     {
-                        s += this.currentBlock.ToString(col, row, boardValues[col,row]);
+                        s += this.currentBlock.ToString(row, col, boardValues.blocks[row,col]);
                     }
                     else
                     {
-                        s += boardValues[col, row]; 
+                        s += boardValues.blocks[row, col]; 
                     }
                 }
                 s += "\n";
@@ -70,7 +102,7 @@ namespace Source
             return this.currentBlock!=null;
         }
 
-        public void Drop(Block _c)
+        public void Drop(MovableGrid _c)
         {
             if (!this.IsFallingBlock())
             {
@@ -81,9 +113,14 @@ namespace Source
                 throw new ArgumentException("A block is already falling.");
         }
 
-        public void Drop(Grid grid)
+        public void FromString(string v)
         {
-            Block b = (Block)grid;
+            this.boardValues = new StringToMatrix(v); 
+        }
+
+        public void Drop(Tetromino grid)
+        {
+            MovableGrid b = (MovableGrid) grid.mg;
             this.Drop(b); 
         }
 

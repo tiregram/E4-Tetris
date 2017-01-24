@@ -12,11 +12,11 @@ namespace Source
 
         int Grid.Rows()
         {
-            return converter.blocks.GetLength(1); 
+            return converter.blocks.GetLength(0); 
         }
         int Grid.Columns()
         {
-            return converter.blocks.GetLength(0); 
+            return converter.blocks.GetLength(1); 
         }
         char Grid.CellAt(int row, int col)
         {

@@ -43,7 +43,7 @@ namespace Test
 
         void DropBlock(char c)
         {
-            board.Drop(new Block(c));
+            board.Drop(new Tetromino(c + "\n" ));
         }
 
         [TestMethod]

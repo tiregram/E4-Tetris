@@ -12,23 +12,26 @@ namespace Source
 
         public StringToMatrix(string grid)
         {
+            if(grid=="")
+            {
+                return; 
+            }
             blocks = stringToTab(grid); 
-
         }
 
         private char[,] stringToTab(string s)
         {
 
-            int sizeX = s.IndexOf('\n');
-            int sizeY = s.Length / (sizeX + 1);
+            int sizeCol = s.IndexOf('\n');
+            int sizeRow = s.Length / (sizeCol + 1);
 
-            char[,] tab = new char[sizeY, sizeX];
+            char[,] tab = new char[sizeRow, sizeCol];
 
-            for (int x = 0; x < sizeX; x++)
+            for (int row = 0; row < sizeRow; row++)
             {
-                for (int y = 0; y < sizeY; y++)
+                for (int col = 0; col < sizeCol; col++)
                 {
-                    tab[y, x] = s[x + y * (sizeX + 1)];
+                    tab[row, col] = s[col + row * (sizeCol + 1)];
                 }
 
             }
@@ -36,14 +39,14 @@ namespace Source
             return tab;
         }
 
-        public static string Inverse(char[,] mat, int x, int y)
+        public static string Inverse(char[,] mat, int _row, int _col)
         {
             string str = "";
-            for (int i = 0; i < mat.GetLength(0); i++)
+            for (int row = 0; row < mat.GetLength(0); row++)
             {
-                for (int j = 0; j < mat.GetLength(1); j++)
+                for (int col = 0; col < mat.GetLength(1); col++)
                 {
-                    str += mat[i, j];
+                    str += mat[row, col];
                 }
                 str += "\n";
             }
