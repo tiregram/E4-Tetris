@@ -10,7 +10,8 @@ namespace Source
     {
         public int x, y;
         char c;
-        Tetromino t;
+        public Tetromino t;
+        public int valState; 
 
         private Board myBoard; 
         public Board MyBoard
@@ -22,6 +23,10 @@ namespace Source
                 {
                     this.x = myBoard.columns/2 - ((Grid)this).Columns()/2 ;
                     this.y = - ((Grid)this).Rows() / 2;
+                    if(!this.check())
+                    {
+                        y++;
+                    }
                 }
             }
             get
@@ -44,6 +49,36 @@ namespace Source
         public MovableGrid(Tetromino pt) : this('U', null)
         {
             this.t = pt;
+        }
+
+        public MovableGrid RotateRight()
+        {
+            MovableGrid ret = new MovableGrid(this);
+
+            ret.valState = (ret.valState + 1) % t.state.GetLength(0);
+
+            return ret;
+        }
+
+        public MovableGrid RotateLeft()
+        {
+            MovableGrid ret = new MovableGrid(this);
+
+            ret.valState = (t.state.GetLength(0) + ret.valState - 1) % t.state.GetLength(0);
+
+            return ret;
+        }
+
+
+        public MovableGrid(MovableGrid g)
+        {
+            this.x = g.x;
+            this.y = g.y;
+            this.t = new Tetromino(g.t);
+            this.t.mg = this;
+            this.myBoard = g.myBoard;
+            this.valState = g.valState;
+            this.c = g.c;
         }
 
 
@@ -88,8 +123,10 @@ namespace Source
 
         public String ToString(int _row,int _col,char cc)
         {
-            if (_col-this.x >= 0 && _col-this.x < ((Grid)this).Columns()
-                && _row-this.y >= 0 && _row - this.y < ((Grid)this).Rows() )
+            if (_col-this.x >= 0 
+                && _col-this.x < ((Grid)this).Columns()
+                && _row-this.y >= 0 
+                && _row - this.y < ((Grid)this).Rows() )
             {
                 if(((Grid)this).CellAt(_row - this.y, _col - this.x) == '.')
                 {
@@ -99,7 +136,21 @@ namespace Source
             }
             return ""+cc;
         }
-        
+
+        public MovableGrid MoveLeft()
+        {
+            MovableGrid ret = new MovableGrid(this);
+            ret.x--; 
+            return ret; 
+        }
+
+        internal MovableGrid MoveRight()
+        {
+            MovableGrid ret = new MovableGrid(this);
+            ret.x++;
+            return ret;
+        }
+
         public void printInBoard()
         {
             for (int row = 0; row < ((Grid)this).Rows() ; row++)
@@ -109,7 +160,11 @@ namespace Source
                     if(this.x + col >= 0 && this.x + col< ((Grid)myBoard).Columns() && 
                         this.y + row >= 0 && this.y + row < ((Grid)myBoard).Rows())
                     {
-                        MyBoard.boardValues.blocks[this.y + row, this.x + col] = ((Grid)this).CellAt(row, col);
+                        if(((Grid)this).CellAt(row, col) != '.')
+                        {
+                            MyBoard.boardValues.blocks[this.y + row, this.x + col] = ((Grid)this).CellAt(row, col);
+                        }
+
                     }
                 }
             }

@@ -55,6 +55,7 @@
     <Compile Include="Step2_TetrominoesTest.cs" />
     <Compile Include="Step3_FallingTetrominosTest.cs" />
     <Compile Include="Step4_MoveFallingTetrominoesTest.cs" />
+    <Compile Include="Step6_RotateFallingTetrominoesTest.cs" />
     <Compile Include="Step5_RotateFallingTetrominoesTest.cs" />
   </ItemGroup>
   <ItemGroup>

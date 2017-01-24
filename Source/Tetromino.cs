@@ -8,8 +8,7 @@ namespace Source
 {
     public class Tetromino : Grid
     {
-        Piece[] state;
-        int valState;
+        public Piece[] state;
         public MovableGrid mg;
 
         public static Tetromino T_SHAPE = new Tetromino(
@@ -46,7 +45,7 @@ namespace Source
         {
             Tetromino ret = new Tetromino(this); 
             
-            ret.valState = (ret.valState + 1) % state.GetLength(0);
+            ret.mg.valState = (ret.mg.valState + 1) % state.GetLength(0);
 
             return ret; 
         }
@@ -55,7 +54,7 @@ namespace Source
         {
             Tetromino ret = new Tetromino(this);
 
-            ret.valState = (state.GetLength(0) + ret.valState - 1) % state.GetLength(0);
+            ret.mg.valState = (state.GetLength(0) + ret.mg.valState - 1) % state.GetLength(0);
 
             return ret;
         }
@@ -63,14 +62,14 @@ namespace Source
 
         Piece getCurrentState()
         {
-            return this.state[this.valState];
+            return this.state[this.mg.valState];
         }
 
         private Tetromino(int size,int rot = 0)
         {
             this.mg = new MovableGrid(this);
             state = new Piece[size];
-            valState = rot;
+            this.mg.valState = rot;
             
         }
 
@@ -94,11 +93,11 @@ namespace Source
         }
 
 
-        private Tetromino(Tetromino a)
+        public Tetromino(Tetromino a)
         {
             this.mg = new MovableGrid(this);
             this.state = a.state;
-            this.valState = a.valState;
+            this.mg.valState = a.mg.valState;
         }
 
 

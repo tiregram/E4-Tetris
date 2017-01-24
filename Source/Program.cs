@@ -13,7 +13,7 @@ namespace Source
         static int COLS = 10;
         static Board board = new Board(ROWS, COLS);
 
-        //static ShuffleBag<Tetromino> bag = new ShuffleBag<Tetromino>();
+        static ShuffleBag<Tetromino> bag = new ShuffleBag<Tetromino>();
 
         static int TIME = 500;
         static Timer timer = new Timer(TIME);
@@ -38,23 +38,23 @@ namespace Source
 
         static void FillBag()
         {
-        //    bag.Add(Tetromino.I_SHAPE, 4);
-        //    bag.Add(Tetromino.J_SHAPE, 4);
-        //    bag.Add(Tetromino.L_SHAPE, 4);
-        //    bag.Add(Tetromino.O_SHAPE, 4);
-        //    bag.Add(Tetromino.S_SHAPE, 4);
-        //    bag.Add(Tetromino.T_SHAPE, 4);
-        //    bag.Add(Tetromino.Z_SHAPE, 4);
+            bag.Add(Tetromino.I_SHAPE, 4);
+            //bag.Add(Tetromino.J_SHAPE, 4);
+            //    bag.Add(Tetromino.L_SHAPE, 4);
+            //    bag.Add(Tetromino.O_SHAPE, 4);
+            //    bag.Add(Tetromino.S_SHAPE, 4);
+            bag.Add(Tetromino.T_SHAPE, 4);
+            //    bag.Add(Tetromino.Z_SHAPE, 4);
         }
 
         static void Update(object source, ElapsedEventArgs e)
         {
             lock(board)
             {
-        //        if (board.IsFallingBlock())
-        //            board.MoveDown();
-        //        else
-        //            board.Drop( bag.Next() );
+                if (board.IsFallingBlock())
+                    board.MoveDown();
+                else
+                    board.Drop(bag.Next());
             }
         }
 
@@ -67,19 +67,19 @@ namespace Source
                     ConsoleKeyInfo cki = Console.ReadKey(true);
                     if (cki.Key == ConsoleKey.LeftArrow)
                     {
-        //                board.MoveLeft();
+                        board.MoveLeft();
                     }
                     else if (cki.Key == ConsoleKey.RightArrow)
-                    { 
-        //                board.MoveRight();
+                    {
+                        board.MoveRight();
                     }
                     else if (cki.Key == ConsoleKey.DownArrow)
-                    { 
-        //                board.MoveDown();
+                    {
+                        board.MoveDown();
                     }
                     else if (cki.Key == ConsoleKey.UpArrow)
-                    { 
-        //                board.RotateRight();
+                    {
+                        board.RotateRight();
                     }
                 }
             }

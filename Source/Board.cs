@@ -33,13 +33,26 @@ namespace Source
             }
             else
             {
-                return '|';
+                if (row < 0)
+                    return '|';
+                else
+                    return '|';
             }
+        }
+
+        public void RotateRight()
+        {
+            if (this.currentBlock != null)
+            {
+                MovableGrid ret = TryRotate(this.currentBlock.RotateRight());
+                if (ret != null)
+                    this.currentBlock = ret;
+                }
         }
 
         public void MoveDown()
         {
-            this.currentBlock.Tick();
+            this.Tick(); 
         }
 
         public Board(int rows, int columns)
@@ -58,8 +71,21 @@ namespace Source
             }
         }
 
+        public void RotateLeft()
+        {
+
+            if (this.currentBlock != null)
+            {
+                MovableGrid ret = TryRotate(this.currentBlock.RotateLeft());
+                if (ret != null)
+                    this.currentBlock = ret;
+                }
+        }
+
         public void MoveLeft()
         {
+            if (this.currentBlock == null)
+                return;
             this.currentBlock.x--; 
             if(!this.currentBlock.check())
             {
@@ -67,8 +93,29 @@ namespace Source
             }
         }
 
+        MovableGrid TryRotate(MovableGrid rotated)
+        {
+            MovableGrid[] moves = {
+                rotated ,
+                rotated.MoveLeft(), // wallkick moves
+                rotated.MoveRight(),
+                rotated.MoveLeft().MoveLeft(),
+                rotated.MoveRight().MoveRight(),
+            };
+            foreach (MovableGrid test in moves)
+            {
+                if (test.check())
+                {
+                    return test;
+                }
+            }
+            return null; 
+        }
+
         public void MoveRight()
         {
+            if (this.currentBlock == null)
+                return; 
             this.currentBlock.x++;
             if (!this.currentBlock.check())
             {
@@ -127,11 +174,51 @@ namespace Source
 
         public void Tick()
         {
-            
             if(this.IsFallingBlock() && !this.currentBlock.Tick())
             {
                 this.currentBlock.printInBoard(); 
                 this.currentBlock = null; 
+            }
+
+            checkLines();
+        }
+
+        private void checkLines()
+        {
+            List<int> toDelete = new List<int>();
+            for (int row = 0; row < rows; row++)
+            {
+                bool isfull = true; 
+                for (int col = 0; col < columns; col++)
+                {
+                    if(boardValues.blocks[row, col] == '.')
+                    {
+                        isfull = false;
+                    }
+                }
+                if (isfull)
+                    toDelete.Add(row); 
+            }
+
+            foreach(int row in toDelete)
+            {
+                this.deleteLine(row);
+            }
+        }
+
+        private void deleteLine(int row)
+        {
+            for (int i = row; i > 0; i--)
+            {
+                for (int col = 0; col < columns; col++)
+                {
+                    boardValues.blocks[i, col] = boardValues.blocks[i - 1, col];
+                }
+            }
+
+            for (int col = 0; col < columns; col++)
+            {
+                boardValues.blocks[0, col] = '.';
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Source
 {
-    class Piece : Grid
+    public class Piece : Grid
     {
         StringToMatrix converter; 
 
